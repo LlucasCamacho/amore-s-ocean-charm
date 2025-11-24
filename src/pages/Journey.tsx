@@ -162,14 +162,14 @@ const Journey = () => {
               <Heart className="w-20 h-20 mx-auto text-accent" />
             </div>
             <h1 className="text-5xl md:text-6xl font-serif font-bold mb-6 text-gradient">
-              Uma Jornada Especial
+              Coisas Que Adoro em Você
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
               Durante 7 dias, você descobrirá coisas especiais que eu adoro em você.
               Uma nova mensagem aparecerá a cada dia.
             </p>
             <p className="text-lg text-muted-foreground/80 mb-12 italic">
-              Como as ondas do mar e as estrelas do céu, meu amor por você é eterno ✨
+              Espero que você goste tanto quanto eu gosto de você. Com carinho, João Lucas ♒
             </p>
             <Button
               onClick={startJourney}
@@ -197,7 +197,7 @@ const Journey = () => {
             {currentMessage && (
               <div className="space-y-6">
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-gradient mb-8">
-                  O que eu adoro em você...
+                  ADORO...
                 </h2>
                 <p className="text-2xl md:text-3xl leading-relaxed text-foreground font-light">
                   {currentMessage.message}
@@ -217,7 +217,7 @@ const Journey = () => {
               size="sm"
               className="mt-6 text-muted-foreground hover:text-foreground"
             >
-              Admin
+              João lucas
             </Button>
           </Card>
         )}
