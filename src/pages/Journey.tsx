@@ -199,9 +199,11 @@ const Journey = () => {
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-gradient mb-8">
                   ADORO...
                 </h2>
-                <p className="text-xl md:text-2xl leading-loose text-foreground font-light max-w-2xl mx-auto whitespace-pre-wrap break-words">
-                  {currentMessage.message}
-                </p>
+                <div className="text-xl md:text-2xl text-foreground font-light max-w-2xl mx-auto whitespace-pre-wrap break-words text-justify [&>p]:indent-8 [&>p]:leading-relaxed [&>p]:mb-4">
+                  {currentMessage.message.split('\n\n').map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                </div>
               </div>
             )}
 
