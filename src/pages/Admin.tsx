@@ -145,13 +145,23 @@ const Admin = () => {
 
   const resetJourney = async () => {
     try {
+      // First get the journey_state record
+      const { data: journeyData, error: fetchError } = await supabase
+        .from("journey_state")
+        .select("id")
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      // Then update it with the reset values
       const { error } = await supabase
         .from("journey_state")
         .update({
           started_at: null,
           current_day: 0,
           last_viewed_at: null,
-        });
+        })
+        .eq("id", journeyData.id);
 
       if (error) throw error;
       toast.success("Jornada resetada!");
