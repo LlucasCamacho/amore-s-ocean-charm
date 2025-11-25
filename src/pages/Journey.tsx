@@ -199,7 +199,7 @@ const Journey = () => {
                 <h2 className="text-4xl md:text-5xl font-serif font-bold text-gradient mb-8">
                   ADORO...
                 </h2>
-                <p className="text-2xl md:text-3xl leading-relaxed text-foreground font-light">
+                <p className="text-xl md:text-2xl leading-loose text-foreground font-light max-w-2xl mx-auto whitespace-pre-wrap break-words">
                   {currentMessage.message}
                 </p>
               </div>
