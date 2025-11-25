@@ -268,7 +268,7 @@ const Admin = () => {
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground">
-                Cole o URL de um arquivo de áudio (ex: arquivo no Google Drive, Dropbox, etc)
+                Cole a URL de um arquivo de áudio. Para Google Drive: compartilhe o arquivo publicamente e cole o link de visualização (será convertido automaticamente).
               </p>
             </div>
 

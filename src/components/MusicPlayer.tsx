@@ -5,27 +5,61 @@ import { Volume2, VolumeX } from "lucide-react";
 export const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [musicUrl, setMusicUrl] = useState("");
+  const [error, setError] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // You can set a default music URL here or load from settings
-    // For now, users will need to add their own music URL
     const savedMusicUrl = localStorage.getItem("music_url");
     if (savedMusicUrl) {
-      setMusicUrl(savedMusicUrl);
+      // Convert Google Drive view links to direct download links
+      let processedUrl = savedMusicUrl;
+      if (savedMusicUrl.includes("drive.google.com/file/d/")) {
+        const fileId = savedMusicUrl.match(/\/d\/([^/]+)/)?.[1];
+        if (fileId) {
+          processedUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
+        }
+      }
+      setMusicUrl(processedUrl);
     }
   }, []);
 
-  const togglePlay = () => {
+  const togglePlay = async () => {
     if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
+      try {
+        if (isPlaying) {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        } else {
+          await audioRef.current.play();
+          setIsPlaying(true);
+          setError(false);
+        }
+      } catch (err) {
+        console.error("Erro ao reproduzir música:", err);
+        setError(true);
+        setIsPlaying(false);
       }
-      setIsPlaying(!isPlaying);
     }
   };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => setIsPlaying(false);
+    const handleError = () => {
+      setError(true);
+      setIsPlaying(false);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener("error", handleError);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener("error", handleError);
+    };
+  }, []);
 
   if (!musicUrl) return null;
 
@@ -34,7 +68,12 @@ export const MusicPlayer = () => {
       <Button
         onClick={togglePlay}
         size="lg"
-        className="rounded-full w-14 h-14 bg-primary/80 backdrop-blur-sm hover:bg-primary shadow-lg ocean-glow"
+        className={`rounded-full w-14 h-14 backdrop-blur-sm shadow-lg ocean-glow ${
+          error 
+            ? "bg-destructive/80 hover:bg-destructive" 
+            : "bg-primary/80 hover:bg-primary"
+        }`}
+        title={error ? "Erro ao carregar música. Verifique a URL." : isPlaying ? "Pausar música" : "Tocar música"}
       >
         {isPlaying ? (
           <Volume2 className="h-6 w-6" />
@@ -42,7 +81,7 @@ export const MusicPlayer = () => {
           <VolumeX className="h-6 w-6" />
         )}
       </Button>
-      <audio ref={audioRef} loop src={musicUrl} />
+      <audio ref={audioRef} loop src={musicUrl} preload="auto" />
     </div>
   );
 };
