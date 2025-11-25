@@ -176,7 +176,7 @@ const Journey = () => {
               size="lg"
               className="text-xl px-12 py-6 rounded-full bg-gradient-to-r from-primary via-secondary to-accent hover:opacity-90 transition-all duration-300 ocean-glow"
             >
-              Começar a Jornada
+              Começar
             </Button>
           </Card>
         ) : (
