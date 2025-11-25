@@ -255,20 +255,22 @@ const Admin = () => {
             <div className="space-y-2">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Music className="w-4 h-4" />
-                URL da Música (SoundCloud)
+                URL da Música (Spotify ou SoundCloud)
               </label>
               <div className="flex gap-2">
                 <Input
                   value={musicUrl}
                   onChange={(e) => setMusicUrl(e.target.value)}
-                  placeholder="https://soundcloud.com/..."
+                  placeholder="https://open.spotify.com/track/..."
                 />
                 <Button onClick={saveMusicUrl}>
                   <Save className="w-4 h-4" />
                 </Button>
               </div>
               <p className="text-xs text-muted-foreground">
-                Cole a URL de uma música do SoundCloud. Exemplo: https://soundcloud.com/artista/musica
+                Cole a URL de uma música/playlist do Spotify ou SoundCloud. Exemplos:<br/>
+                Spotify: https://open.spotify.com/track/...<br/>
+                SoundCloud: https://soundcloud.com/artista/musica
               </p>
             </div>
 
